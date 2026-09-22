@@ -2658,7 +2658,7 @@ def getvideo(video_id, res=None):
         try:
             print("TRYING PIPED YT-DLP -> FFMPEG", flush=True)
 
-            ytdlp_proc = subprocess.Popen([
+            ytdlp_proc = subprocess.Popen(cmd, ...)[
                 "yt-dlp",
                 "--extractor-args", "youtube:player_client=android",
                 "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
@@ -2667,7 +2667,7 @@ def getvideo(video_id, res=None):
                 "-o", "-",
                 url
             ], check=True)
-            ffmpeg_proc = subprocess.Popen([
+            ffmpeg_proc = subprocess.Popen(cmd, ...)[
                 "ffmpeg", "-y",
                 "-i", "pipe:0",
                 "-vf", "scale=320:240",
