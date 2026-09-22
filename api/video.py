@@ -66,7 +66,7 @@ def _detect_best_video_encoder():
                     *encoder_args,
                     "-t", "1",
                     test_output
-                ], check=True, capture_output=True, timeout=15)
+                ], capture_output=True, timeout=15)
                 print("ENCODER DETECTION: found working hardware encoder:", encoder_args[1], flush=True)
                 _best_video_encoder = encoder_args
                 return _best_video_encoder
@@ -2658,7 +2658,13 @@ def getvideo(video_id, res=None):
         try:
             print("TRYING PIPED YT-DLP -> FFMPEG", flush=True)
 
-            ytdlp_proc = subprocess.Popen(cmd, ...)[
+            yt_dlp_cmd = [
+                "yt-dlp",
+                "--cookies", "/etc/secrets/cookies.txt",  # Add cookie file path here
+                "-o", "-",
+                video_url
+            ]
+            ytdlp_proc = subprocess.Popen(cmd, yt_dlp_cmd, stdout=subprocess.PIPE)[
                 "yt-dlp",
                 "--extractor-args", "youtube:player_client=android",
                 "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
@@ -2666,8 +2672,8 @@ def getvideo(video_id, res=None):
                 "--no-warnings",
                 "-o", "-",
                 url
-            ], check=True)
-            ffmpeg_proc = subprocess.Popen(cmd, ...)[
+            ])
+            ffmpeg_proc = subprocess.Popen(cmd, yt_dlp_cmd, stdout=subprocess.PIPE)[
                 "ffmpeg", "-y",
                 "-i", "pipe:0",
                 "-vf", "scale=320:240",
@@ -2685,7 +2691,7 @@ def getvideo(video_id, res=None):
                 "-movflags", "+faststart",
 
                 temp_output
-            ], check=True)
+            ])
 
             ytdlp_proc.stdout.close()  # let ffmpeg own the read end
             _, ffmpeg_err = ffmpeg_proc.communicate(timeout=120)
@@ -2723,8 +2729,7 @@ def getvideo(video_id, res=None):
                     "--no-warnings",
                     "-o", temp_input,
                     url
-                ],
-                check=True)
+                ])
 
             except subprocess.CalledProcessError as e:
 
@@ -2738,8 +2743,7 @@ def getvideo(video_id, res=None):
                     "--no-warnings",
                     "-o", temp_input,
                     url
-                ],
-                check=True)
+                ])
 
             print("START FFMPEG")
             t3 = time.time()
@@ -2772,7 +2776,7 @@ def getvideo(video_id, res=None):
                         "-movflags", "+faststart",
 
                         temp_output
-                    ], check=True, capture_output=True)
+                    ], capture_output=True)
                     print("HARDWARE ENCODE SUCCEEDED:", hw_args[1], flush=True)
                     encoded = True
                     break
@@ -2801,7 +2805,7 @@ def getvideo(video_id, res=None):
                     "-ac", "1",
                     "-movflags", "+faststart",
                     temp_output
-                ], check=True)
+                ])
 
             print("FALLBACK FFMPEG SECONDS:", time.time() - t3)
 
