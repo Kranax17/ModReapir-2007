@@ -26,6 +26,8 @@ RUN /bin/bash | \
     apt-get install python3 python3-pip wget --no-install-recommends -y && \
     cd /tuberepair-python && \
     pip3 install -r requirements.txt --break-system-packages && \
+    apt-get install -y ffmpeg && \
+    apt-get install -y yt-dlp && \
     apt-get clean
 
 COPY --chown=${TUBEREPAIR_USER_UID}:${TUBEREPAIR_USER_GID} ./tuberepair /tuberepair-python
