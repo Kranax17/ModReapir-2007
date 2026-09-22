@@ -2660,13 +2660,14 @@ def getvideo(video_id, res=None):
             
             p1 = subprocess.Popen(yt_dlp_cmd, stdout=subprocess.PIPE)
             yt_cmd = [
-                'yt-dlp',
-                '--cookies', '/etc/secrets/cookies.txt',  # <--- Add this line
-                '-f', ...,
-                '-o', ...
+                "yt-dlp",
+                "--cookies", "/etc/secrets/cookies.txt",
+                "-f", ...,
+                "-o", ...
             ]
             ytdlp_proc = subprocess.Popen(cmd, yt_dlp_cmd, stdout=subprocess.PIPE)[
                 "yt-dlp",
+                "--cookies", "/etc/secrets/cookies.txt",
                 "--extractor-args", "youtube:player_client=android",
                 "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
                 "--no-playlist",
@@ -2724,6 +2725,7 @@ def getvideo(video_id, res=None):
 
                 subprocess.run([
                     "yt-dlp",
+                    "--cookies", "/etc/secrets/cookies.txt",
                     "--extractor-args", "youtube:player_client=android",
                     "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
                     "--no-playlist",
@@ -2738,6 +2740,7 @@ def getvideo(video_id, res=None):
 
                 subprocess.run([
                     "yt-dlp",
+                    "--cookies", "/etc/secrets/cookies.txt",
                     "--extractor-args", "youtube:player_client=android",
                     "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
                     "--no-playlist",
