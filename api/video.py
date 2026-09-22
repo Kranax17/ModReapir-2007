@@ -2657,12 +2657,13 @@ def getvideo(video_id, res=None):
         # (some videos/formats don't pipe cleanly).
         try:
             print("TRYING PIPED YT-DLP -> FFMPEG", flush=True)
-
-            yt_dlp_cmd = [
-                "yt-dlp",
-                "--cookies", "/etc/secrets/cookies.txt",  # Add cookie file path here
-                "-o", "-",
-                video_url
+            
+            p1 = subprocess.Popen(yt_dlp_cmd, stdout=subprocess.PIPE)
+            yt_cmd = [
+                'yt-dlp',
+                '--cookies', '/etc/secrets/cookies.txt',  # <--- Add this line
+                '-f', ...,
+                '-o', ...
             ]
             ytdlp_proc = subprocess.Popen(cmd, yt_dlp_cmd, stdout=subprocess.PIPE)[
                 "yt-dlp",
