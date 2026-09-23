@@ -17,6 +17,7 @@ import time
 import threading
 import xml.etree.ElementTree as ET
 import yt_dlp
+import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 video = Blueprint("video", __name__)
@@ -3356,3 +3357,17 @@ cmd = [
     "--no-playlist",
     f"https://www.youtube.com/watch?v={video_id}"
 ]
+
+def fetch_metadata_official_api(video_id, api_key):
+    url = f"https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id={video_id}&key={api_key}"
+    res = requests.get(url).json()
+    
+    if "items" in res and len(res["items"]) > 0:
+        item = res["items"][0]
+        return {
+            "title": item["snippet"]["title"],
+            "description": item["snippet"]["description"],
+            "viewCount": item["statistics"].get("viewCount", 0),
+            "published": item["snippet"]["publishedAt"]
+        }
+    return None
