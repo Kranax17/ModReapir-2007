@@ -23,14 +23,13 @@ RUN /bin/bash | \
     groupadd -g ${TUBEREPAIR_USER_GID} tuberepair && \
     useradd tuberepair -u ${TUBEREPAIR_USER_UID} -g ${TUBEREPAIR_USER_GID} && \
     apt-get update && \
-    apt-get install python3 python3-pip wget --no-install-recommends -y && \
+    apt-get install python3 python3-pip wget ffmpeg --no-install-recommends -y && \
     cd /tuberepair-python && \
     pip3 install -r requirements.txt --break-system-packages && \
-    apt-get install -y ffmpeg && \
-    apt-get install -y yt-dlp && \
-    pip3 install -U yt-dlp && \
-    apt-get clean
-
+    pip3 install -U yt-dlp --break-system-packages && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+    
 COPY --chown=${TUBEREPAIR_USER_UID}:${TUBEREPAIR_USER_GID} ./tuberepair /tuberepair-python
 
 WORKDIR /tuberepair-python
