@@ -25,7 +25,8 @@ RUN /bin/bash | \
     apt-get update && \
     apt-get install python3 python3-pip wget ffmpeg --no-install-recommends -y && \
     cd /tuberepair-python && \
-    pip3 install -r requirements.txt --break-system-packages && python3 -c "import yt_dlp..." && \
+    pip3 install -r requirements.txt --break-system-packages && \
+    python3 -c "import yt_dlp..." && \
     pip3 install -U yt-dlp --break-system-packages && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
