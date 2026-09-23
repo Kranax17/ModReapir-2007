@@ -27,6 +27,7 @@ RUN /bin/bash | \
     cd /tuberepair-python && \
     pip3 install -r requirements.txt --break-system-packages && \
     pip3 install -U yt-dlp --break-system-packages && \
+    python3 -c "import yt_dlp..." && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
     
