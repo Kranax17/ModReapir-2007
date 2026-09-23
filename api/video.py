@@ -315,9 +315,400 @@ if os.path.exists(METADATA_CACHE_FILE):
 def save_metadata_cache():
     with open(METADATA_CACHE_FILE, "w", encoding="utf-8") as f:
         json.dump(metadata_cache, f)
-
 def fetch_ytdlp_metadata(video_id):
     print("STARTING METADATA FETCH:", video_id)
+
+    if video_id in metadata_cache:
+        return
+
+    try:
+        # Pass valid client options directly to yt-dlp
+        clients = [
+            [],  # default
+            ["--extractor-args", "youtube:player_client=ios,android,mweb"],
+            ["--extractor-args", "youtube:player_client=tv"],
+        ]
+
+        info = None
+
+        for extra_args in clients:
+            cmd = [
+                "yt-dlp",
+                *extra_args,
+                "--dump-json",
+                "--no-playlist",
+                "--no-warnings",
+                f"https://www.youtube.com/watch?v={video_id}"
+            ]
+            
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+
+            print("METADATA CLIENT:", extra_args or "default")
+            print("YT-DLP METADATA RETURN CODE:", result.returncode)
+
+            if result.returncode == 0 and result.stdout.strip():
+                info = json.loads(result.stdout.splitlines()[0])
+                break
+
+        if not info:
+            print("METADATA FAILED FOR:", video_id)
+            return
+
+        print("SAVING METADATA:", video_id)
+
+        metadata_cache[video_id] = {
+            "viewCount": int(info.get("view_count") or 0),
+            "lengthSeconds": int(info.get("duration") or 0),
+            "published": int(info.get("timestamp") or 0),
+            "description": info.get("description") or "",
+            "cachedAt": int(time.time())
+        }
+
+        save_metadata_cache()
+
+    except Exception as e:
+        print("METADATA CACHE ERROR:", e)
+
+    if video_id in metadata_cache:
+        return
+
+    try:
+        # Pass valid client options directly to yt-dlp
+        clients = [
+            [],  # default
+            ["--extractor-args", "youtube:player_client=ios,android,mweb"],
+            ["--extractor-args", "youtube:player_client=tv"],
+        ]
+
+        info = None
+
+        for extra_args in clients:
+            cmd = [
+                "yt-dlp",
+                *extra_args,
+                "--dump-json",
+                "--no-playlist",
+                "--no-warnings",
+                f"https://www.youtube.com/watch?v={video_id}"
+            ]
+            
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+
+            print("METADATA CLIENT:", extra_args or "default")
+            print("YT-DLP METADATA RETURN CODE:", result.returncode)
+
+            if result.returncode == 0 and result.stdout.strip():
+                info = json.loads(result.stdout.splitlines()[0])
+                break
+
+        if not info:
+            print("METADATA FAILED FOR:", video_id)
+            return
+
+        print("SAVING METADATA:", video_id)
+
+        metadata_cache[video_id] = {
+            "viewCount": int(info.get("view_count") or 0),
+            "lengthSeconds": int(info.get("duration") or 0),
+            "published": int(info.get("timestamp") or 0),
+            "description": info.get("description") or "",
+            "cachedAt": int(time.time())
+        }
+
+        save_metadata_cache()
+
+    except Exception as e:
+        print("METADATA CACHE ERROR:", e)
+
+    if video_id in metadata_cache:
+        return
+
+    try:
+        # Pass valid client options directly to yt-dlp
+        clients = [
+            [],  # default
+            ["--extractor-args", "youtube:player_client=ios,android,mweb"],
+            ["--extractor-args", "youtube:player_client=tv"],
+        ]
+
+        info = None
+
+        for extra_args in clients:
+            cmd = [
+                "yt-dlp",
+                *extra_args,
+                "--dump-json",
+                "--no-playlist",
+                "--no-warnings",
+                f"https://www.youtube.com/watch?v={video_id}"
+            ]
+            
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+
+            print("METADATA CLIENT:", extra_args or "default")
+            print("YT-DLP METADATA RETURN CODE:", result.returncode)
+
+            if result.returncode == 0 and result.stdout.strip():
+                info = json.loads(result.stdout.splitlines()[0])
+                break
+
+        if not info:
+            print("METADATA FAILED FOR:", video_id)
+            return
+
+        print("SAVING METADATA:", video_id)
+
+        metadata_cache[video_id] = {
+            "viewCount": int(info.get("view_count") or 0),
+            "lengthSeconds": int(info.get("duration") or 0),
+            "published": int(info.get("timestamp") or 0),
+            "description": info.get("description") or "",
+            "cachedAt": int(time.time())
+        }
+
+        save_metadata_cache()
+
+    except Exception as e:
+        print("METADATA CACHE ERROR:", e)
+
+    if video_id in metadata_cache:
+        return
+
+    try:
+        # Pass valid client options directly to yt-dlp
+        clients = [
+            [],  # default
+            ["--extractor-args", "youtube:player_client=ios,android,mweb"],
+            ["--extractor-args", "youtube:player_client=tv"],
+        ]
+
+        info = None
+
+        for extra_args in clients:
+            cmd = [
+                "yt-dlp",
+                *extra_args,
+                "--dump-json",
+                "--no-playlist",
+                "--no-warnings",
+                f"https://www.youtube.com/watch?v={video_id}"
+            ]
+            
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+
+            print("METADATA CLIENT:", extra_args or "default")
+            print("YT-DLP METADATA RETURN CODE:", result.returncode)
+
+            if result.returncode == 0 and result.stdout.strip():
+                info = json.loads(result.stdout.splitlines()[0])
+                break
+
+        if not info:
+            print("METADATA FAILED FOR:", video_id)
+            return
+
+        print("SAVING METADATA:", video_id)
+
+        metadata_cache[video_id] = {
+            "viewCount": int(info.get("view_count") or 0),
+            "lengthSeconds": int(info.get("duration") or 0),
+            "published": int(info.get("timestamp") or 0),
+            "description": info.get("description") or "",
+            "cachedAt": int(time.time())
+        }
+
+        save_metadata_cache()
+
+    except Exception as e:
+        print("METADATA CACHE ERROR:", e)
+
+    if video_id in metadata_cache:
+        return
+
+    try:
+        # Pass valid client options directly to yt-dlp
+        clients = [
+            [],  # default
+            ["--extractor-args", "youtube:player_client=ios,android,mweb"],
+            ["--extractor-args", "youtube:player_client=tv"],
+        ]
+
+        info = None
+
+        for extra_args in clients:
+            cmd = [
+                "yt-dlp",
+                *extra_args,
+                "--dump-json",
+                "--no-playlist",
+                "--no-warnings",
+                f"https://www.youtube.com/watch?v={video_id}"
+            ]
+            
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+
+            print("METADATA CLIENT:", extra_args or "default")
+            print("YT-DLP METADATA RETURN CODE:", result.returncode)
+
+            if result.returncode == 0 and result.stdout.strip():
+                info = json.loads(result.stdout.splitlines()[0])
+                break
+
+        if not info:
+            print("METADATA FAILED FOR:", video_id)
+            return
+
+        print("SAVING METADATA:", video_id)
+
+        metadata_cache[video_id] = {
+            "viewCount": int(info.get("view_count") or 0),
+            "lengthSeconds": int(info.get("duration") or 0),
+            "published": int(info.get("timestamp") or 0),
+            "description": info.get("description") or "",
+            "cachedAt": int(time.time())
+        }
+
+        save_metadata_cache()
+
+    except Exception as e:
+        print("METADATA CACHE ERROR:", e)
+
+    if video_id in metadata_cache:
+        return
+
+    try:
+        # Pass valid client options directly to yt-dlp
+        clients = [
+            [],  # default
+            ["--extractor-args", "youtube:player_client=ios,android,mweb"],
+            ["--extractor-args", "youtube:player_client=tv"],
+        ]
+
+        info = None
+
+        for extra_args in clients:
+            cmd = [
+                "yt-dlp",
+                *extra_args,
+                "--dump-json",
+                "--no-playlist",
+                "--no-warnings",
+                f"https://www.youtube.com/watch?v={video_id}"
+            ]
+            
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+
+            print("METADATA CLIENT:", extra_args or "default")
+            print("YT-DLP METADATA RETURN CODE:", result.returncode)
+
+            if result.returncode == 0 and result.stdout.strip():
+                info = json.loads(result.stdout.splitlines()[0])
+                break
+
+        if not info:
+            print("METADATA FAILED FOR:", video_id)
+            return
+
+        print("SAVING METADATA:", video_id)
+
+        metadata_cache[video_id] = {
+            "viewCount": int(info.get("view_count") or 0),
+            "lengthSeconds": int(info.get("duration") or 0),
+            "published": int(info.get("timestamp") or 0),
+            "description": info.get("description") or "",
+            "cachedAt": int(time.time())
+        }
+
+        save_metadata_cache()
+
+    except Exception as e:
+        print("METADATA CACHE ERROR:", e)
+
+    if video_id in metadata_cache:
+        return
+
+    try:
+        # Pass valid client options directly to yt-dlp
+        clients = [
+            [],  # default
+            ["--extractor-args", "youtube:player_client=ios,android,mweb"],
+            ["--extractor-args", "youtube:player_client=tv"],
+        ]
+
+        info = None
+
+        for extra_args in clients:
+            cmd = [
+                "yt-dlp",
+                *extra_args,
+                "--dump-json",
+                "--no-playlist",
+                "--no-warnings",
+                f"https://www.youtube.com/watch?v={video_id}"
+            ]
+            
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+
+            print("METADATA CLIENT:", extra_args or "default")
+            print("YT-DLP METADATA RETURN CODE:", result.returncode)
+
+            if result.returncode == 0 and result.stdout.strip():
+                info = json.loads(result.stdout.splitlines()[0])
+                break
+
+        if not info:
+            print("METADATA FAILED FOR:", video_id)
+            return
+
+        print("SAVING METADATA:", video_id)
+
+        metadata_cache[video_id] = {
+            "viewCount": int(info.get("view_count") or 0),
+            "lengthSeconds": int(info.get("duration") or 0),
+            "published": int(info.get("timestamp") or 0),
+            "description": info.get("description") or "",
+            "cachedAt": int(time.time())
+        }
+
+        save_metadata_cache()
+
+    except Exception as e:
+        print("METADATA CACHE ERROR:", e)
 
     if video_id in metadata_cache:
         return
