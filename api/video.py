@@ -3342,3 +3342,17 @@ def debug_ytdlp():
             "status": "error",
             "message": str(e)
         }), 500
+
+# If using environment variable for Render:
+if os.getenv("YOUTUBE_COOKIES") and not os.path.exists("cookies.txt"):
+    with open("cookies.txt", "w") as f:
+        f.write(os.getenv("YOUTUBE_COOKIES"))
+
+# Pass --cookies to your CLI call:
+cmd = [
+    "yt-dlp",
+    "--cookies", "cookies.txt",
+    "--dump-json",
+    "--no-playlist",
+    f"https://www.youtube.com/watch?v={video_id}"
+]
