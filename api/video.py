@@ -2659,10 +2659,11 @@ def getvideo(video_id, res=None):
             print("TRYING PIPED YT-DLP -> FFMPEG", flush=True)
             
             p1 = subprocess.Popen(yt_dlp_cmd, stdout=subprocess.PIPE)
-            yt_dlp_cmd = [
+            ytdlp_cmd = [
                 "yt-dlp",
                 "--cookies", "/etc/secrets/cookies.txt",
-                "--extractor-args", "youtube:player_client=ios,web_creator",
+                "--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "--extractor-args", "youtube:player_client=ios,web",
                 "-o", "-",
                 video_url
             ]
