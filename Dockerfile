@@ -19,14 +19,12 @@ LABEL VERSION="0.1 Beta"
 
 COPY --chown=${TUBEREPAIR_USER_UID}:${TUBEREPAIR_USER_GID} ./requirements.txt /tuberepair-python/
 
-RUN /bin/bash | \
-    groupadd -g ${TUBEREPAIR_USER_GID} tuberepair && \
+RUN groupadd -g ${TUBEREPAIR_USER_GID} tuberepair && \
     useradd tuberepair -u ${TUBEREPAIR_USER_UID} -g ${TUBEREPAIR_USER_GID} && \
     apt-get update && \
-    apt-get install python3 python3-pip wget ffmpeg --no-install-recommends -y && \
+    apt-get install -y --no-install-recommends python3 python3-pip python3-venv wget ffmpeg && \
     cd /tuberepair-python && \
     pip3 install -r requirements.txt --break-system-packages && \
-    python3 -c "import yt_dlp..." && \
     pip3 install -U yt-dlp --break-system-packages && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
