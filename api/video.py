@@ -1657,6 +1657,24 @@ def get_playlist_from_invidious(playlist_id):
         print("INVIDIOUS PLAYLIST FAILED:", e)
         return []
 
+YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY")
+
+def get_video_metadata(video_id):
+    if not YOUTUBE_API_KEY:
+        print("Error: YOUTUBE_API_KEY is not set in Render environment variables!")
+        return None
+
+    url = f"https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id={video_id}&key={YOUTUBE_API_KEY}"
+    
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        if "items" in data and len(data["items"]) > 0:
+            return data["items"][0]
+            
+    print("API Request Failed:", response.text)
+    return None
+
 # InviData (github.com/StealthTheAngryBird/InviData) — a similar
 # GData-translation project — uses Invidious's SEARCH endpoint with a
 # generic query for Featured/Top Rated/etc, taking author/authorId
