@@ -325,7 +325,7 @@ def fetch_ytdlp_metadata(video_id):
     try:
         clients = [
             [],
-            ["--extractor-args", "youtube:player_client=android"]
+            ["--extractor-args" "youtube:player_client=ios,android,web" "https://www.youtube.com/watch?v=KwYGI8OjXvo"],
         ]
 
         info = None
@@ -2658,25 +2658,25 @@ def getvideo(video_id, res=None):
         try:
             print("TRYING PIPED YT-DLP -> FFMPEG", flush=True)
             
-            p1 = subprocess.Popen(yt_dlp_cmd, stdout=subprocess.PIPE)
+            p1 = subprocess.Popen(ytdlp_cmd, stdout=subprocess.PIPE)
             ytdlp_cmd = [
                 "yt-dlp",
                 "--cookies", "/etc/secrets/cookies.txt",
                 "--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-                "--extractor-args", "youtube:player_client=ios,web",
+                "--extractor-args" "youtube:player_client=ios,android,web" "https://www.youtube.com/watch?v=KwYGI8OjXvo"],
                 "-o", "-",
                 video_url
             ]
-            ytdlp_proc = subprocess.Popen(cmd, yt_dlp_cmd, stdout=subprocess.PIPE)[
+            ytdlp_proc = subprocess.Popen(cmd, ytdlp_cmd, stdout=subprocess.PIPE)[
                 "yt-dlp",
-                "--extractor-args", "youtube:player_client=android",
+                "--extractor-args" "youtube:player_client=ios,android,web" "https://www.youtube.com/watch?v=KwYGI8OjXvo"],
                 "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
                 "--no-playlist",
                 "--no-warnings",
                 "-o", "-",
                 url
             ])
-            ffmpeg_proc = subprocess.Popen(cmd, yt_dlp_cmd, stdout=subprocess.PIPE)[
+            ffmpeg_proc = subprocess.Popen(cmd, ytdlp_cmd, stdout=subprocess.PIPE)[
                 "ffmpeg", "-y",
                 "-i", "pipe:0",
                 "-vf", "scale=320:240",
@@ -2727,7 +2727,7 @@ def getvideo(video_id, res=None):
                 subprocess.run([
                     "yt-dlp",
                     "--cookies", "/etc/secrets/cookies.txt",
-                    "--extractor-args", "youtube:player_client=android",
+                    "--extractor-args" "youtube:player_client=ios,android,web" "https://www.youtube.com/watch?v=KwYGI8OjXvo"],
                     "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
                     "--no-playlist",
                     "--no-warnings",
@@ -2742,7 +2742,7 @@ def getvideo(video_id, res=None):
                 subprocess.run([
                     "yt-dlp",
                     "--cookies", "/etc/secrets/cookies.txt",
-                    "--extractor-args", "youtube:player_client=android",
+                    "--extractor-args" "youtube:player_client=ios,android,web" "https://www.youtube.com/watch?v=KwYGI8OjXvo"],
                     "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
                     "--no-playlist",
                     "--no-warnings",
