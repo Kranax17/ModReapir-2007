@@ -1,5 +1,5 @@
 from modules import get, helpers
-from flask import Blueprint, Flask, request, redirect, render_template, Response
+from flask import Flask, request, redirect, render_template, Response, jsonify, Blueprint
 import config
 from modules.logs import print_with_seperator
 from modules import yt
@@ -16,6 +16,7 @@ import re
 import time
 import threading
 import xml.etree.ElementTree as ET
+import yt_dlp
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 video = Blueprint("video", __name__)
@@ -3306,3 +3307,38 @@ def get_suggested(video_id, res=''):
         'url': url,
         'next_page': None
     })
+
+@app.route('/debug-ytdlp')
+def debug_ytdlp():
+    # Basic security check using a URL query key
+    secret = request.args.get('key')
+    if secret != "my_debug_secret_123":
+        return jsonify({"error": "Unauthorized"}), 403
+
+    video_id = request.args.get('id', 'KwYGI8OjXvo')
+    
+    ydl_opts = {
+        'quiet': True,
+        'no_warnings': True,
+        'skip_download': True,
+        'extractor_args': {
+            'youtube': {
+                'player_client': ['ios', 'android', 'mweb']
+            }
+        }
+    }
+
+    try:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(f"https://www.youtube.com/watch?v={video_id}", download=False)
+            return jsonify({
+                "status": "success",
+                "title": info.get("title"),
+                "views": info.get("view_count"),
+                "duration": info.get("duration")
+            })
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 500
