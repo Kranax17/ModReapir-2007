@@ -28,6 +28,7 @@ RUN /bin/bash | \
     pip3 install -r requirements.txt --break-system-packages && \
     apt-get install -y ffmpeg && \
     apt-get install -y yt-dlp && \
+    pip install -U yt-dlp && \
     apt-get clean
 
 COPY --chown=${TUBEREPAIR_USER_UID}:${TUBEREPAIR_USER_GID} ./tuberepair /tuberepair-python
