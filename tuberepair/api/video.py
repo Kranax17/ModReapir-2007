@@ -66,7 +66,7 @@ def _detect_best_video_encoder():
                     *encoder_args,
                     "-t", "1",
                     test_output
-                ], check=True, capture_output=True, timeout=15)
+                ], capture_output=True, timeout=15)
                 print("ENCODER DETECTION: found working hardware encoder:", encoder_args[1], flush=True)
                 _best_video_encoder = encoder_args
                 return _best_video_encoder
@@ -2671,7 +2671,7 @@ def getvideo(video_id, res=None):
                 "--no-warnings",
                 "-o", "-",
                 url
-            ], check=True)
+            ])
             ffmpeg_proc = subprocess.Popen([
                 "ffmpeg", "-y",
                 "-i", "pipe:0",
@@ -2690,7 +2690,7 @@ def getvideo(video_id, res=None):
                 "-movflags", "+faststart",
 
                 temp_output
-            ], check=True)
+            ])
 
             ytdlp_proc.stdout.close()  # let ffmpeg own the read end
             _, ffmpeg_err = ffmpeg_proc.communicate(timeout=120)
@@ -2728,8 +2728,7 @@ def getvideo(video_id, res=None):
                     "--no-warnings",
                     "-o", temp_input,
                     url
-                ],
-                check=True)
+                ])
 
             except subprocess.CalledProcessError as e:
 
@@ -2743,8 +2742,7 @@ def getvideo(video_id, res=None):
                     "--no-warnings",
                     "-o", temp_input,
                     url
-                ],
-                check=True)
+                ])
 
             print("START FFMPEG")
             t3 = time.time()
@@ -2777,7 +2775,7 @@ def getvideo(video_id, res=None):
                         "-movflags", "+faststart",
 
                         temp_output
-                    ], check=True, capture_output=True)
+                    ], capture_output=True)
                     print("HARDWARE ENCODE SUCCEEDED:", hw_args[1], flush=True)
                     encoded = True
                     break
@@ -2806,7 +2804,7 @@ def getvideo(video_id, res=None):
                     "-ac", "1",
                     "-movflags", "+faststart",
                     temp_output
-                ], check=True)
+                ])
 
             print("FALLBACK FFMPEG SECONDS:", time.time() - t3)
 
