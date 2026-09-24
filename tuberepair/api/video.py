@@ -2911,3 +2911,10 @@ def get_suggested(video_id, res=''):
         'url': url,
         'next_page': None
     })
+
+    cmd = [
+        "yt-dlp",
+        "--cookies", "youtube_cookies.txt",  # Add these two arguments
+        "-f", "best",
+        f"https://www.youtube.com/watch?v={video_id}"
+    ]
