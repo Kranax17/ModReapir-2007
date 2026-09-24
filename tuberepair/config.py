@@ -68,7 +68,7 @@ else:
 if "URL" in OSEnv:
     URL = OSEnv["URL"]
 else:
-    URL = "[https://yewtu.be](https://yewtu.be)"
+    URL = "https://yewtu.be"
 
 # Max res to allow users
 # Mainly to stop converting long numbers to strings.
