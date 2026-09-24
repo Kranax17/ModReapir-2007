@@ -1842,7 +1842,12 @@ def cleanup_old_files():
 
     while True:
         now = time.time()
-
+        
+        # 1. Create the folder if it doesn't exist so the thread doesn't crash
+        if not os.path.exists(folder):
+            os.makedirs(folder, exist_ok=True)
+            
+        # 2. Iterate and delete old files
         for filename in os.listdir(folder):
             if filename.endswith(".mp4"):
                 path = os.path.join(folder, filename)
@@ -1856,9 +1861,9 @@ def cleanup_old_files():
                             print("Deleted:", filename)
                         except Exception as e:
                             print("Delete failed:", e)
-
-        time.sleep(60)  # check every 1 minute
-
+                            
+        # 3. Pause the loop for 60 seconds before checking again
+        time.sleep(60)
 
 # search for videos
 def _handle_batch_request(res=''):
