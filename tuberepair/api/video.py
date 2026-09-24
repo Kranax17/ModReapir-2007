@@ -2860,7 +2860,7 @@ def get_suggested(video_id, res=''):
         print("RELATED SEARCH QUERY:", search_query)
 
         raw = get.fetch(
-            f"{config.URL}/api/v1/search?q={search_query}&type=video"
+            f"https://yewtu.be/api/v1/search?q={search_query}&type=video"
         ) or []
 
         for vid in raw:
