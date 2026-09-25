@@ -8,3 +8,4 @@ waitress
 requests[socks]
 redis
 yt-dlp>=2026.08.06
+ffmpeg
