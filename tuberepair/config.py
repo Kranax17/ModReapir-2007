@@ -116,12 +116,12 @@ else:
 if "GOOGLE_CLIENT_ID" in OSEnv:
     GOOGLE_CLIENT_ID = OSEnv["GOOGLE_CLIENT_ID"]
 else:
-    GOOGLE_CLIENT_ID = "REPLACEME"
+    GOOGLE_CLIENT_ID = "214784031957-ieum3bnbegsoclo0323pcfbq02hvtlp4.apps.googleusercontent.com"
 
 if "GOOGLE_CLIENT_SECRET" in OSEnv:
     GOOGLE_CLIENT_SECRET = OSEnv["GOOGLE_CLIENT_SECRET"]
 else:
-    GOOGLE_CLIENT_SECRET = "REPLACEME"
+    GOOGLE_CLIENT_SECRET = "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"
 
 # -- Custom functions -- #
 
