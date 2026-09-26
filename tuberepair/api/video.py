@@ -325,7 +325,7 @@ def fetch_ytdlp_metadata(video_id):
     try:
         clients = [
             [],
-            ["--extractor-args", "youtube:player_client=android"]
+            ["--extractor-args", "youtube:player_client=android,mweb,default;po_token=mweb+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"]
         ]
 
         info = None
@@ -2665,7 +2665,7 @@ def getvideo(video_id, res=None):
 
             ytdlp_proc = subprocess.Popen([
                 "yt-dlp",
-                "--extractor-args", "youtube:player_client=android",
+                "--extractor-args", "youtube:player_client=android,mweb,default;po_token=mweb+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"
                 "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
                 "--no-playlist",
                 "--no-warnings",
@@ -2722,7 +2722,7 @@ def getvideo(video_id, res=None):
 
                 subprocess.run([
                     "yt-dlp",
-                    "--extractor-args", "youtube:player_client=android",
+                    "--extractor-args", "youtube:player_client=android,mweb,default;po_token=mweb+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"
                     "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
                     "--no-playlist",
                     "--no-warnings",
@@ -2736,7 +2736,7 @@ def getvideo(video_id, res=None):
 
                 subprocess.run([
                     "yt-dlp",
-                    "--extractor-args", "youtube:player_client=android",
+                    "--extractor-args", "youtube:player_client=android,mweb,default;po_token=mweb+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"
                     "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
                     "--no-playlist",
                     "--no-warnings",
