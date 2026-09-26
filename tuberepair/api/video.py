@@ -2912,7 +2912,7 @@ def get_suggested(video_id, res=''):
 
     cmd = [
         "yt-dlp",
-        "--cookies", "youtube_cookies.txt",  # Add these two arguments
+        "--cookies", "cookies.txt",  # Add these two arguments
         "-f", "best",
         f"https://www.youtube.com/watch?v={video_id}"
     ]
